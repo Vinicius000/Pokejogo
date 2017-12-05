@@ -129,12 +129,18 @@ public class PlayerCtrl : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.CompareTag("moeda"))
+		switch (other.gameObject.tag)
 		{
+			case "moeda":
 			AudioManager.instance.PlayCoinPickupSound(other.gameObject);
 			SFXManager.instance.ShowCoinParticles(other.gameObject);
 			GM.instance.IncrementCoinCount();
 			Destroy(other.gameObject);
+			break;
+
+			case "Finish":
+			GM.instance.LevelComplete();
+			break;
 		}
 	}
 }
