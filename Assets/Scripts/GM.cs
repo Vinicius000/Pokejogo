@@ -68,12 +68,13 @@ public class GM : MonoBehaviour {
 	void DisplayHUdData()
 	{
 		ui.hud.txtCoinCount.text = "x" + data.coinCount;
+		ui.hud.txtLifeCount.text = "x " + data.lifeCount;
 		ui.hud.txtTimer.text = "Timer: " + timeLeft.ToString("F1");
 	}
 
-	public void RespawnPlayer()
+	public void DecrementLives()
 	{
-		Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+		data.lifeCount--;
 	}
 
 	public void KillPlayer()
@@ -81,7 +82,15 @@ public class GM : MonoBehaviour {
 		if (player != null)
 		{
 			Destroy(player.gameObject);
+			DecrementLives();
+			if (data.lifeCount > 0)
+			{
 			Invoke("RespawnPlayer", timeToRespawn);
+			}
+			else
+			{
+				GameOver();
+			}
 		}
 	}
 
@@ -100,5 +109,9 @@ public class GM : MonoBehaviour {
 		ui.gameOver.txtCoinCount.text = "Coins: " + data.coinCount;
 		ui.gameOver.txtTimer.text = "Timer: " + timeLeft.ToString("F1");
 		ui.gameOver.gameOverPanel.SetActive(true);
+	}
+	public void RespawnPlayer()
+	{
+		Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
 	}
 }
