@@ -126,6 +126,11 @@ public class PlayerCtrl : MonoBehaviour {
 		{
 			isJumping = false;
 		}
+		else if (other.gameObject.layer == LayerMask.NameToLayer("Inimigo"))
+		{
+			anim.SetInteger("State", 5);
+			GM.instance.HurtPlayer();
+		}
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -143,4 +148,5 @@ public class PlayerCtrl : MonoBehaviour {
 			break;
 		}
 	}
+
 }
