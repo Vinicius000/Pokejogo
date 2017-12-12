@@ -111,7 +111,7 @@ public class GM : MonoBehaviour {
 			}
 			else
 			{
-				GameOver();
+				ExpirePlayer();
 			}
 		}
 	}
